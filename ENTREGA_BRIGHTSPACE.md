@@ -6,13 +6,13 @@ En este video se explica cómo crear un proyecto con ASP.NET Core MVC y cómo fi
 
 Link del video Loom o YouTube:
 
-https://youtube.com/...
+https://youtu.be/Tq0gpv4sbBI
 
 ## 2. Repositorio GitHub
 
 Repositorio GitHub:
 
-https://github.com/tu-usuario/mini-core-logistica-mvc
+https://github.com/EstebanCueva/MiniCore.Logistics.Mvc
 
 Nota: incluir este mismo link al video dentro del README del repositorio.
 
@@ -20,7 +20,7 @@ Nota: incluir este mismo link al video dentro del README del repositorio.
 
 Proyecto deployado:
 
-https://tu-proyecto.onrender.com
+https://minicore-logistics-mvc.onrender.com/
 
 El link debe abrir directamente la pantalla principal del filtro de fechas.
 
@@ -48,8 +48,8 @@ https://dotnet.microsoft.com/en-us/learn/videos
 
 Correo institucional UDLA:
 
-alumno.apellido@udla.edu.ec
+esteban.cueva@udla.edu.ec
 
 Correo alternativo:
 
-tu.correo@gmail.com
+cuevaesteban254@gmail.com
