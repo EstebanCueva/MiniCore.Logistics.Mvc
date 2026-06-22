@@ -1,0 +1,8 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+logistics.db
+logistics.db-shm
+logistics.db-wal

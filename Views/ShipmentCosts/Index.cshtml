@@ -1,0 +1,125 @@
+@using System.Globalization
+@model ShipmentCostPageViewModel
+
+@{
+    ViewData["Title"] = "Costo de envíos";
+    CultureInfo currencyCulture = CultureInfo.CreateSpecificCulture("en-US");
+}
+
+<section class="card hero-card">
+    <div>
+        <p class="eyebrow">Filtro principal</p>
+        <h2>Costo total de envíos por repartidor</h2>
+        <p class="description">
+            Ingresa un rango de fechas. El controlador recibe el filtro, el servicio consulta los envíos
+            y el modelo calcula el costo usando la tarifa por kilogramo de cada zona.
+        </p>
+    </div>
+
+    <form asp-controller="ShipmentCosts" asp-action="Index" method="get" class="filter-form">
+        <div class="form-field">
+            <label for="startDate">Fecha Inicio</label>
+            <input id="startDate" name="startDate" type="date" value="@Model.Filter.StartDate.ToString("yyyy-MM-dd")" required />
+        </div>
+
+        <div class="form-field">
+            <label for="endDate">Fecha Fin</label>
+            <input id="endDate" name="endDate" type="date" value="@Model.Filter.EndDate.ToString("yyyy-MM-dd")" required />
+        </div>
+
+        <button type="submit">Calcular costos</button>
+    </form>
+
+    <div asp-validation-summary="All" class="validation-summary"></div>
+</section>
+
+<section class="summary-grid">
+    <article class="metric-card">
+        <span>Envíos</span>
+        <strong>@Model.TotalShipments</strong>
+    </article>
+    <article class="metric-card">
+        <span>Total kg</span>
+        <strong>@Model.TotalKg.ToString("N2") kg</strong>
+    </article>
+    <article class="metric-card">
+        <span>Costo total</span>
+        <strong>@Model.GrandTotalCost.ToString("C2", currencyCulture)</strong>
+    </article>
+</section>
+
+<section class="card">
+    <div class="section-title">
+        <div>
+            <p class="eyebrow">Resultado</p>
+            <h2>Resumen por repartidor y zona</h2>
+        </div>
+        <span class="range-label">
+            @Model.Filter.StartDate.ToString("dd/MM/yyyy") - @Model.Filter.EndDate.ToString("dd/MM/yyyy")
+        </span>
+    </div>
+
+    @if (Model.Results.Count == 0)
+    {
+        <div class="empty-state">
+            No existen envíos registrados en el rango seleccionado.
+        </div>
+    }
+    else
+    {
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Repartidor</th>
+                        <th>Envíos</th>
+                        <th>Total kg</th>
+                        <th>Zona</th>
+                        <th>Tarifa/kg</th>
+                        <th>Costo Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ShipmentCostResultViewModel result in Model.Results)
+                    {
+                        <tr>
+                            <td>@result.DriverName</td>
+                            <td>@result.ShipmentCount</td>
+                            <td>@result.TotalKg.ToString("N2") kg</td>
+                            <td>@result.ZoneName</td>
+                            <td>@result.RatePerKg.ToString("C2", currencyCulture)</td>
+                            <td class="money">@result.TotalCost.ToString("C2", currencyCulture)</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total general</td>
+                        <td>@Model.TotalShipments</td>
+                        <td>@Model.TotalKg.ToString("N2") kg</td>
+                        <td colspan="2">Todas las zonas filtradas</td>
+                        <td class="money">@Model.GrandTotalCost.ToString("C2", currencyCulture)</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    }
+</section>
+
+<section class="card mvc-note">
+    <h2>¿Dónde está el MVC en este ejercicio?</h2>
+    <div class="mvc-grid">
+        <div>
+            <h3>Model</h3>
+            <p>Representa las tablas Repartidor, Envios y Zonas mediante entidades C# y EF Core.</p>
+        </div>
+        <div>
+            <h3>View</h3>
+            <p>Renderiza el formulario de fechas y la tabla de resultados con Razor.</p>
+        </div>
+        <div>
+            <h3>Controller</h3>
+            <p>Recibe las fechas, valida el rango y llama al servicio de cálculo.</p>
+        </div>
+    </div>
+</section>

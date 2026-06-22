@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Mini Core Logística MVC</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="app-header">
+        <div class="container header-content">
+            <div>
+                <p class="eyebrow">ASP.NET Core MVC</p>
+                <h1>Mini Core Logística</h1>
+            </div>
+            <span class="badge">Model · View · Controller</span>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        @RenderBody()
+    </main>
+
+    <footer class="app-footer">
+        <div class="container">
+            Ejercicio MVC: cálculo de costo total de envíos por repartidor y zona.
+        </div>
+    </footer>
+</body>
+</html>
